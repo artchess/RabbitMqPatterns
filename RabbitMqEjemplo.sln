@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploCliente", "EjemploCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploServidor", "EjemploServidor\EjemploServidor.csproj", "{C4E1753E-C943-4208-9507-587DFB6B1660}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Mensajes de una sola via", "2. Mensajes de una sola via", "{971C49ED-1904-4B91-9B65-B164A2B05768}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Pattrón Mensajes de una sola via", "2. Pattrón Mensajes de una sola via", "{971C49ED-1904-4B91-9B65-B164A2B05768}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Queue procesada por mas de un consumidor", "3. Queue procesada por mas de un consumidor", "{089E3958-821D-4DB7-B693-A6CD3C9EAB97}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Pattrón Queues de trabajo", "3. Pattrón Queues de trabajo", "{089E3958-821D-4DB7-B693-A6CD3C9EAB97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cliente2", "Cliente2\Cliente2.csproj", "{B97EBE70-4984-45FD-8C1A-AC7FA5ECD471}"
 EndProject
