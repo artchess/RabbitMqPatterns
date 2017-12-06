@@ -52,7 +52,7 @@ namespace Server
             _model = _connection.CreateModel();
 
             _model.QueueDeclare(QueueTwoName, true, false, false, null);
-            Console.WriteLine($"Queue {ExchangeName} creada!");
+            Console.WriteLine($"Queue {QueueTwoName} creada!");
             Console.WriteLine();
 
             _model.BasicQos(0, 1, false);

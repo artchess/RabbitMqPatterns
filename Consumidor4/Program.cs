@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Consumidor4
 {
@@ -6,13 +10,6 @@ namespace Consumidor4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Inicializando consumidor4 de Queue5 RabbitMQ");
-            Console.WriteLine();
-            Console.WriteLine();
-
-            var queueProcessor = new RabbitConsumer(){Enabled = true};
-            queueProcessor.Start();
-            Console.ReadLine();
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Servidor1
 
 
             _model.QueueDeclare(QueueThreeName, true, false, false, null);
-            Console.WriteLine($"Queue {ExchangeName} creada!");
+            Console.WriteLine($"Queue {QueueThreeName} creada!");
             Console.WriteLine();
 
             _model.BasicQos(0, 1, false);

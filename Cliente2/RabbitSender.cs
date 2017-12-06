@@ -62,7 +62,7 @@ namespace Client2
             _model = _connection.CreateModel();
 
             _model.QueueDeclare(QueueThreeName, true, false, false, null);
-            Console.WriteLine($"Queue {ExchangeName} creada!");
+            Console.WriteLine($"Queue {QueueThreeName} creada!");
             Console.WriteLine();
         }
 

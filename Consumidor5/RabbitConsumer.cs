@@ -3,19 +3,18 @@ using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Servidor2
+namespace Consumidor5
 {
     /// <summary>
     /// Class to encapsulate recieving messages from RabbitMQ
     /// </summary>
-    public class ConsumidorDos : IDisposable
+    public class RabbitConsumer : IDisposable
     {
         private const string HostName = "localhost";
         private const string UserName = "guest";
         private const string Password = "guest";
-        private const string QueueThreeName = "Queue3";
-        private const string ExchangeName = "";
-        private const bool IsDurable = true;
+        private const string QueueName = "Queue6";
+        private const bool IsDurable = false;
         //The two below settings are just to illustrate how they can be used but we are not using them in
         //this sample as we will use the defaults
         private const string VirtualHost = "";
@@ -28,12 +27,12 @@ namespace Servidor2
         private ConnectionFactory _connectionFactory;
         private IConnection _connection;
         private IModel _model;
-        
+
 
         /// <summary>
         /// Ctor with a key to lookup the configuration
         /// </summary>
-        public ConsumidorDos()
+        public RabbitConsumer()
         {
             DisplaySettings();
             _connectionFactory = new ConnectionFactory
@@ -51,8 +50,8 @@ namespace Servidor2
             _connection = _connectionFactory.CreateConnection();
             _model = _connection.CreateModel();
 
-            _model.QueueDeclare(QueueThreeName, true, false, false, null);
-            Console.WriteLine($"Queue {QueueThreeName} creada!");
+            _model.QueueDeclare(QueueName, true, false, false, null);
+            Console.WriteLine($"Queue {QueueName} creada!");
             Console.WriteLine();
 
             _model.BasicQos(0, 1, false);
@@ -65,8 +64,7 @@ namespace Servidor2
             Console.WriteLine("Host: {0}", HostName);
             Console.WriteLine("Username: {0}", UserName);
             Console.WriteLine("Password: {0}", Password);
-            Console.WriteLine("QueueName: {0}", QueueThreeName);
-            Console.WriteLine("ExchangeName: {0}", ExchangeName);
+            Console.WriteLine("QueueName: {0}", QueueName);
             Console.WriteLine("VirtualHost: {0}", VirtualHost);
             Console.WriteLine("Port: {0}", Port);
             Console.WriteLine("Is Durable: {0}", IsDurable);
@@ -79,14 +77,21 @@ namespace Servidor2
             while (Enabled)
             {
                 //Get next message
-                var deliveryArgs = _model.BasicGet(QueueThreeName, false);
+                var deliveryArgs = _model.BasicGet(QueueName, false);
 
-                if (deliveryArgs == null) continue;
+                if(deliveryArgs == null) continue;
 
-                //Serialize message
                 var message = Encoding.Default.GetString(deliveryArgs.Body);
+                Console.WriteLine("Mensaje recibido: {0}", message);
+                var response = string.Format("Mensaje procesado - {0} : La respuesta es buena!", message);
 
-                Console.WriteLine("Mensaje Recibido - {0}", message);
+                //Send Response
+                var replyProperties = _model.CreateBasicProperties();
+                replyProperties.CorrelationId = deliveryArgs.BasicProperties.CorrelationId;
+                byte[] messageBuffer = Encoding.Default.GetBytes(response);
+                _model.BasicPublish("", deliveryArgs.BasicProperties.ReplyTo, replyProperties, messageBuffer);
+
+                //Acknowledge message is processed
                 _model.BasicAck(deliveryArgs.DeliveryTag, false);
             }
         }
